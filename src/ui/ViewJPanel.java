@@ -80,9 +80,9 @@ public class ViewJPanel extends javax.swing.JPanel {
         buttonUpdate = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         lblPhoto1 = new javax.swing.JLabel();
         lblPhoto2 = new javax.swing.JLabel();
+        buttonSearch = new javax.swing.JButton();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -96,16 +96,7 @@ public class ViewJPanel extends javax.swing.JPanel {
 
         tableInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Name", "Employee ID", "Age", "Gender", "Start Date", "Level", "Team Info", "Position Title", "Cell Phone", "Email address"
@@ -228,7 +219,12 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Enter text to Search:");
+        buttonSearch.setText("Search");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -274,8 +270,8 @@ public class ViewJPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonSearch)
+                                .addGap(26, 26, 26)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(75, 75, 75)
                         .addComponent(buttonView)
@@ -283,7 +279,7 @@ public class ViewJPanel extends javax.swing.JPanel {
                         .addComponent(buttonUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonDelete)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(444, 444, 444)
@@ -303,15 +299,15 @@ public class ViewJPanel extends javax.swing.JPanel {
                     .addComponent(buttonDelete)
                     .addComponent(buttonUpdate)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(buttonSearch))
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelEmployeeID)
-                    .addComponent(txtEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEmployeeID))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelAge)
@@ -383,7 +379,8 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText(selectedInfo.getPositionTitle());
         txtCellPhoneNumber.setText(selectedInfo.getCellPhoneNumber());
         txtEmailAddress.setText(selectedInfo.getEmailAddress());
-        //lblPhoto.setIcon(getPhoto);
+        lblPhoto.setText(ConvertByteToString(selectedInfo.getPhoto()));
+        //lblPhoto.setIcon(lblPhoto.getIcon());
     }//GEN-LAST:event_buttonViewActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -490,21 +487,50 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText(updatedPositionTitle);
         txtCellPhoneNumber.setText(updatedCellPhone);
         txtEmailAddress.setText(updatedEmailAddress);
+        
+        txtName.setText("");
+        txtEmployeeID.setText("");
+        txtAge.setText(String.valueOf(""));
+        txtGender.setText("");
+        txtStartDate.setText("");
+        txtLevel.setText("");
+        txtTeamInfo.setText("");
+        txtPositionTitle.setText("");
+        txtCellPhoneNumber.setText("");
+        txtEmailAddress.setText("");
+        
     }//GEN-LAST:event_tableInfoMouseClicked
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
-        String query = txtSearch.getText().toLowerCase();
-        filter(query);
+        
         
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        // TODO add your handling code here:
+        String search =txtSearch.getText();
+        filter(search);
+    }
+        
+        private void filter(String query){
+        
+        DefaultTableModel model = (DefaultTableModel) tableInfo.getModel();
+        TableRowSorter<DefaultTableModel> sort = new TableRowSorter<DefaultTableModel>();
+        tableInfo.setRowSorter(sort);
+        
+        sort.setRowFilter(RowFilter.regexFilter(query));
+        
+    
+        
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonUpdate;
     private javax.swing.JButton buttonView;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAge;
     private javax.swing.JLabel labelCellPhoneNumber;
@@ -542,7 +568,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         for (EmployeeInfo ei : history.getHistory()){
             
-            Object[] row = new Object[10];
+            Object[] row = new Object[11];
             row[0] = ei;
             row[1] = ei.getEmployeeID();
             row[2] = ei.getAge();
@@ -553,19 +579,19 @@ public class ViewJPanel extends javax.swing.JPanel {
             row[7] = ei.getPositionTitle();
             row[8] = ei.getCellPhoneNumber();
             row[9] = ei.getEmailAddress();
-            
+            row[10]=ei.getPhoto();
             
             model.addRow(row);
         }
         }
     
-    private void filter(String query){
-        TableRowSorter<DefaultTableModel> sort = new TableRowSorter<DefaultTableModel>();
-        tableInfo.setRowSorter(sort);
-        
-        sort.setRowFilter(RowFilter.regexFilter(query));
-        
+    
+
+    private String ConvertByteToString(Byte photo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    
          
     
 }

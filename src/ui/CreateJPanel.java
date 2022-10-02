@@ -305,7 +305,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         String positionTitle = txtPositionTitle.getText();
         String cellPhoneNumber = txtCellPhoneNumber.getText();
         String emailAddress = txtEmailAddress.getText();
-        //Byte photo = lblPhoto.getImage();
+        Icon photo = lblPhoto.getIcon();
                 
         EmployeeInfo ei = history.addNewInfo();
         ei.setName(name);
@@ -318,7 +318,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         ei.setPositionTitle(positionTitle);
         ei.setCellPhonenumber(cellPhoneNumber);
         ei.setEmailAddress(emailAddress);
-        //ei.setPhoto(photo);
+        lblPhoto.setIcon(photo);
         
         
         
@@ -335,7 +335,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText("");
         txtCellPhoneNumber.setText("");
         txtEmailAddress.setText("");
-        //lblPhoto.setIcon(photo);
+        lblPhoto.setIcon(null);
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void txtCellPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCellPhoneNumberActionPerformed
@@ -344,10 +344,6 @@ public class CreateJPanel extends javax.swing.JPanel {
 
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         // TODO add your handling code here:
-        
-       
-        
-            
         
           JFileChooser filechooser = new JFileChooser();
     filechooser.setDialogTitle("Choose Your File");
@@ -358,7 +354,7 @@ public class CreateJPanel extends javax.swing.JPanel {
     {
         File file = filechooser.getSelectedFile();
         String path =file.getAbsolutePath();
-        //BufferedImage bi;
+        //BufferedImage path;
         
             // display the image in a Jlabel
             
