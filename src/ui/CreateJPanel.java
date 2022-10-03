@@ -17,6 +17,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Icon;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -40,6 +41,7 @@ public class CreateJPanel extends javax.swing.JPanel {
     
     public ImageIcon ResizeImage(String ImagePath)
     {
+       
         ImageIcon image = new ImageIcon(ImagePath);
         Image img = image.getImage();
         Image newImg = img.getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH      );
@@ -297,7 +299,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         
         String name = txtName.getText();
         String employeeID = txtEmployeeID.getText();
-        int age = Integer.parseInt(txtAge.getText());
+        String age =txtAge.getText();
         String gender = txtGender.getText();
         String startDate = txtStartDate.getText();
         String level = txtLevel.getText();
@@ -306,7 +308,8 @@ public class CreateJPanel extends javax.swing.JPanel {
         String cellPhoneNumber = txtCellPhoneNumber.getText();
         String emailAddress = txtEmailAddress.getText();
         Icon photo = lblPhoto.getIcon();
-                
+         
+        
         EmployeeInfo ei = history.addNewInfo();
         ei.setName(name);
         ei.setEmployeeID(employeeID);
@@ -319,6 +322,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         ei.setCellPhonenumber(cellPhoneNumber);
         ei.setEmailAddress(emailAddress);
         lblPhoto.setIcon(photo);
+        
         
         
         
@@ -336,6 +340,7 @@ public class CreateJPanel extends javax.swing.JPanel {
         txtCellPhoneNumber.setText("");
         txtEmailAddress.setText("");
         lblPhoto.setIcon(null);
+        
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void txtCellPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCellPhoneNumberActionPerformed
@@ -362,7 +367,6 @@ public class CreateJPanel extends javax.swing.JPanel {
             
         }
             
-        
    
     }//GEN-LAST:event_buttonBrowseActionPerformed
 

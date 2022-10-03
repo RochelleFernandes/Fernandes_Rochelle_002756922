@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -15,7 +16,7 @@ public class EmployeeInfo {
     
     private String name;
     private String employeeID;
-    private int age;
+    private String age;
     private String gender;
     private String startDate;
     private String level;
@@ -43,11 +44,11 @@ public class EmployeeInfo {
         this.employeeID = employeeID;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

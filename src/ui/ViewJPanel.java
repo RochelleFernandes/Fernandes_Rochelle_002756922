@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
-
+import javax.swing.JFileChooser;
 /**
  *
  * @author roche
@@ -79,10 +79,10 @@ public class ViewJPanel extends javax.swing.JPanel {
         labelContactInfo = new javax.swing.JLabel();
         buttonUpdate = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
-        txtSearch = new javax.swing.JTextField();
         lblPhoto1 = new javax.swing.JLabel();
         lblPhoto2 = new javax.swing.JLabel();
         buttonSearch = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -213,12 +213,6 @@ public class ViewJPanel extends javax.swing.JPanel {
             }
         });
 
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
-            }
-        });
-
         buttonSearch.setText("Search");
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,8 +265,9 @@ public class ViewJPanel extends javax.swing.JPanel {
                                         .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonSearch)
-                                .addGap(26, 26, 26)
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(28, 28, 28)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)))
                         .addGap(75, 75, 75)
                         .addComponent(buttonView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -298,8 +293,8 @@ public class ViewJPanel extends javax.swing.JPanel {
                     .addComponent(buttonView)
                     .addComponent(buttonDelete)
                     .addComponent(buttonUpdate)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSearch))
+                    .addComponent(buttonSearch)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelName)
@@ -379,8 +374,8 @@ public class ViewJPanel extends javax.swing.JPanel {
         txtPositionTitle.setText(selectedInfo.getPositionTitle());
         txtCellPhoneNumber.setText(selectedInfo.getCellPhoneNumber());
         txtEmailAddress.setText(selectedInfo.getEmailAddress());
-        lblPhoto.setText(ConvertByteToString(selectedInfo.getPhoto()));
-        //lblPhoto.setIcon(lblPhoto.getIcon());
+        
+        //lblPhoto.setIcon(photo);
     }//GEN-LAST:event_buttonViewActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
@@ -419,7 +414,7 @@ public class ViewJPanel extends javax.swing.JPanel {
        if(tableInfo.getSelectedRowCount ()==1){
             String name = txtName.getText();
             String employeeID = txtEmployeeID.getText();
-            int age = Integer.parseInt(txtAge.getText());
+            String age =txtAge.getText();
             String gender = txtGender.getText();
             String startDate = txtStartDate.getText();
             String level = txtLevel.getText();
@@ -467,7 +462,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         String updatedName = model.getValueAt(tableInfo.getSelectedRow(), 0).toString();
         String updatedEmployeeID = model.getValueAt(tableInfo.getSelectedRow(), 1).toString();
-        int updatedAge = (int) model.getValueAt(tableInfo.getSelectedRow(), 2);
+        String updatedAge = model.getValueAt(tableInfo.getSelectedRow(), 2).toString();
         String updatedGender = model.getValueAt(tableInfo.getSelectedRow(), 3).toString();
         String updatedStartDate = model.getValueAt(tableInfo.getSelectedRow(), 4).toString();
         String updatedLevel = model.getValueAt(tableInfo.getSelectedRow(), 5).toString();
@@ -479,7 +474,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         txtName.setText(updatedName);
         txtEmployeeID.setText(updatedEmployeeID);
-        txtAge.setText(String.valueOf(updatedAge));
+        txtAge.setText(updatedAge);
         txtGender.setText(updatedGender);
         txtStartDate.setText(updatedStartDate);
         txtLevel.setText(updatedLevel);
@@ -490,7 +485,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         txtName.setText("");
         txtEmployeeID.setText("");
-        txtAge.setText(String.valueOf(""));
+        txtAge.setText("");
         txtGender.setText("");
         txtStartDate.setText("");
         txtLevel.setText("");
@@ -501,12 +496,6 @@ public class ViewJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_tableInfoMouseClicked
 
-    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_txtSearchKeyReleased
-
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         // TODO add your handling code here:
         String search =txtSearch.getText();
@@ -516,7 +505,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         private void filter(String query){
         
         DefaultTableModel model = (DefaultTableModel) tableInfo.getModel();
-        TableRowSorter<DefaultTableModel> sort = new TableRowSorter<DefaultTableModel>();
+        TableRowSorter<DefaultTableModel> sort = new TableRowSorter<DefaultTableModel>(model);
         tableInfo.setRowSorter(sort);
         
         sort.setRowFilter(RowFilter.regexFilter(query));
@@ -587,9 +576,7 @@ public class ViewJPanel extends javax.swing.JPanel {
     
     
 
-    private String ConvertByteToString(Byte photo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
     
          
