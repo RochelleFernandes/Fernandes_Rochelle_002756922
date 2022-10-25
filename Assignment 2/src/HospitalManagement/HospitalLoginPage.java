@@ -108,6 +108,10 @@ public class HospitalLoginPage extends javax.swing.JFrame {
         Connection con=null;
         ResultSet rs=null;
         PreparedStatement pst=null;
+        
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        String usertype = comboUsers.getSelectedItem().toString();
 
         if (comboUsers.getSelectedItem().equals("Select user")) {
             JOptionPane.showMessageDialog( this, "Please select user type");
@@ -129,9 +133,11 @@ public class HospitalLoginPage extends javax.swing.JFrame {
         String sq1= "select * from patient_registration where username= ? and password =?";
         try{
             pst=con.prepareStatement(sq1);
+            pst.setString(1, username);
+            pst.setString(2, password);
             rs= pst.executeQuery();
             if (rs.next()){
-                this.hide();
+                this.setVisible(false);
                 SearchDoctor form =new SearchDoctor();
                 form.setVisible(true);
             }
@@ -144,14 +150,19 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             // TODO add your handling code here:
         }
         }
-        String sql2="select * from patient_registration where username= ? and password =? and usertype = ?";
+        if (comboUsers.getSelectedItem().equals("System Admin")){
+        String sql2= ("select * from login where username = ? and password = ? and usertype = ?");
         try{
             pst=con.prepareStatement(sql2);
+            pst.setString(1, username);
+            pst.setString(2, password);
+            pst.setString(3, usertype);
             rs= pst.executeQuery();
             if (rs.next()){
-                this.hide();
-                PatientRegistration form =new PatientRegistration();
-                form.setVisible(true);
+                this.setVisible(false);
+                Admin admin =new Admin();
+                admin.setVisible(true);
+                
             }
             
             else{
@@ -160,6 +171,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
         }catch(SQLException | HeadlessException e){
             JOptionPane.showMessageDialog(null, e);
             // TODO add your handling code here:
+        }
         }
     }//GEN-LAST:event_buttonLoginActionPerformed
 

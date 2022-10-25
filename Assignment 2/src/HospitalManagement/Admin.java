@@ -63,6 +63,11 @@ public class Admin extends javax.swing.JFrame {
         menuAddUsers.add(menuAddPatient);
 
         menuAddDoctor.setText("Doctor");
+        menuAddDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAddDoctorActionPerformed(evt);
+            }
+        });
         menuAddUsers.add(menuAddDoctor);
 
         menuAddCommunityAdmin.setText("Community Admin");
@@ -134,6 +139,13 @@ public class Admin extends javax.swing.JFrame {
         PatientRegistration register = new PatientRegistration();
         register.setVisible(true);
     }//GEN-LAST:event_menuAddPatientActionPerformed
+
+    private void menuAddDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddDoctorActionPerformed
+        // TODO add your handling code here:
+        DoctorDetails doctor = new DoctorDetails();
+        doctor.setVisible(true);
+       
+    }//GEN-LAST:event_menuAddDoctorActionPerformed
 
     /**
      * @param args the command line arguments
