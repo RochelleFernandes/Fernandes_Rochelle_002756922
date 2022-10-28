@@ -33,10 +33,32 @@ public class DoctorDetails extends javax.swing.JFrame {
         
         initComponents();
        con=Connect.ConnectDB();
-    
+        AutoID();
        Doctor_table();
     }
     
+    public void AutoID(){
+            try{
+                Statement stmt;
+                stmt= con.createStatement();
+                rs = stmt.executeQuery("Select MAX(id) from doctor_details");
+                rs.next();
+                rs.getString("MAX(id)");
+                if(rs.getString("MAX(id)")== null)
+                {
+                   jLabel3.setText("DS001");
+                }
+                else{
+                    long id = Long.parseLong(rs.getString("MAX(id)").substring(2,rs.getString("MAX(id)" ).length()));
+                    id++;
+                    jLabel3.setText("DS"+ String.format("%03d", id));
+                }
+                
+            }catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(this,ex);
+                
+            }
+    }
     
 
     /**
@@ -73,6 +95,8 @@ public class DoctorDetails extends javax.swing.JFrame {
         DoctorInfo = new javax.swing.JTable();
         buttonUpdate = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1600, 800));
@@ -142,13 +166,13 @@ public class DoctorDetails extends javax.swing.JFrame {
 
         DoctorInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "First Name", "Last Name", "Address", "City", "Zip", "Contact No", "Email id", "Specialization"
+                "DoctorID", "First Name", "Last Name", "Address", "City", "Zip", "Contact No", "Email id", "Specialization"
             }
         ));
         DoctorInfo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,6 +190,10 @@ public class DoctorDetails extends javax.swing.JFrame {
         });
 
         buttonDelete.setText("Delete");
+
+        jLabel1.setText("DoctorID");
+
+        jLabel3.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,47 +220,53 @@ public class DoctorDetails extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lblDoctorUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblSpecilization, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtDoctorPassword)
-                            .addComponent(txtDoctorFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .addComponent(txtDoctorLastName)
-                            .addComponent(txtAddress)
-                            .addComponent(txtDoctorCity)
-                            .addComponent(txtDoctorZip)
-                            .addComponent(txtDoctorContact)
-                            .addComponent(txtDoctorEmail)
-                            .addComponent(txtSpecialization)
-                            .addComponent(txtDoctorUsername))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDoctorPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(txtDoctorFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorLastName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorCity, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorZip, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorContact, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSpecialization, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtDoctorUsername, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(672, Short.MAX_VALUE))
+                .addGap(672, 672, 672))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDoctorFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFirstName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDoctorLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLastName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblFirstName)
-                        .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtDoctorFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLastName)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblDoctorAddress)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(txtDoctorLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addComponent(lblDoctorAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDoctorCity)
                     .addComponent(txtDoctorCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,11 +299,7 @@ public class DoctorDetails extends javax.swing.JFrame {
                     .addComponent(buttonSave)
                     .addComponent(buttonUpdate)
                     .addComponent(buttonDelete))
-                .addContainerGap(303, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(290, 290, 290))
         );
 
         pack();
@@ -302,7 +332,7 @@ public class DoctorDetails extends javax.swing.JFrame {
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         // TODO add your handling code here:
-        
+        String id= jLabel3.getText();
         String firstname = txtDoctorFirstName.getText();
         String lastname = txtDoctorLastName.getText();
         String address = txtAddress.getText();
@@ -369,19 +399,20 @@ public class DoctorDetails extends javax.swing.JFrame {
         txtDoctorUsername.requestDefaultFocus();
        return;
       }
-            String sql= "Insert into doctor_details (first_name, last_name, address, city, zip, contact, email, specialization, username, password) value(?,?,?,?,?,?,?,?,?,?)";
+            String sql= "Insert into doctor_details (id,first_name, last_name, address, city, zip, contact, email, specialization, username, password) value(?,?,?,?,?,?,?,?,?,?,?)";
 
             pst=con.prepareStatement(sql);
-            pst.setString(1, firstname);
-            pst.setString(2, lastname);
-            pst.setString(3, address);
-            pst.setString(4, city);
-            pst.setString(5, zip);
-            pst.setString(6, contact);
-            pst.setString(7, email);
-            pst.setString(8, spec);
-            pst.setString(9, username);
-            pst.setString(10, password);
+            pst.setString(1,id);
+            pst.setString(2, firstname);
+            pst.setString(3, lastname);
+            pst.setString(4, address);
+            pst.setString(5, city);
+            pst.setString(6, zip);
+            pst.setString(7, contact);
+            pst.setString(8, email);
+            pst.setString(9, spec);
+            pst.setString(10, username);
+            pst.setString(11, password);
             
             
             
@@ -390,6 +421,7 @@ public class DoctorDetails extends javax.swing.JFrame {
             buttonSave.setEnabled(false);
             Doctor_table();
             Reset();
+            AutoID();
 
         }catch(HeadlessException | SQLException ex){
             JOptionPane.showMessageDialog(this,ex);
@@ -400,21 +432,26 @@ public class DoctorDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)DoctorInfo.getModel();
         int SelectIndex = DoctorInfo.getSelectedRow();
-        
-        txtDoctorFirstName.setText(model.getValueAt(SelectIndex, 0).toString());
-        txtDoctorLastName.setText(model.getValueAt(SelectIndex, 1).toString());
-        txtAddress.setText(model.getValueAt(SelectIndex, 2).toString());
-        txtDoctorCity.setText(model.getValueAt(SelectIndex, 3).toString());
-        txtDoctorZip.setText(model.getValueAt(SelectIndex, 4).toString());
-        txtDoctorContact.setText(model.getValueAt(SelectIndex, 5).toString());
-        txtDoctorEmail.setText(model.getValueAt(SelectIndex, 6).toString());
-        txtSpecialization.setText(model.getValueAt(SelectIndex, 7).toString());
+        jLabel3.setText(model.getValueAt(SelectIndex, 0).toString());
+        txtDoctorFirstName.setText(model.getValueAt(SelectIndex, 1).toString());
+        txtDoctorLastName.setText(model.getValueAt(SelectIndex, 2).toString());
+        txtAddress.setText(model.getValueAt(SelectIndex, 3).toString());
+        txtDoctorCity.setText(model.getValueAt(SelectIndex, 4).toString());
+        txtDoctorZip.setText(model.getValueAt(SelectIndex, 5).toString());
+        txtDoctorContact.setText(model.getValueAt(SelectIndex, 6).toString());
+        txtDoctorEmail.setText(model.getValueAt(SelectIndex, 7).toString());
+        txtSpecialization.setText(model.getValueAt(SelectIndex, 8).toString());
         
         buttonSave.setVisible(false);
+        lblDoctorUsername.setVisible(false);
+        lblPassword.setVisible(false);
+        txtDoctorUsername.setVisible(false);
+        txtDoctorPassword.setVisible(false);
     }//GEN-LAST:event_DoctorInfoMouseClicked
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // TODO add your handling code here:
+        String id= jLabel3.getText();
         String firstname = txtDoctorFirstName.getText();
         String lastname = txtDoctorLastName.getText();
         String address = txtAddress.getText();
@@ -423,8 +460,7 @@ public class DoctorDetails extends javax.swing.JFrame {
         String contact = txtDoctorContact.getText();
         String email = txtDoctorEmail.getText();
         String spec = txtSpecialization.getText();
-        String username = txtDoctorUsername.getText();
-        String password = txtDoctorPassword.getText();
+        
         try{
             
             if (txtDoctorFirstName.getText().equals("")) {
@@ -465,29 +501,24 @@ public class DoctorDetails extends javax.swing.JFrame {
          
        Statement stmt;
        stmt= con.createStatement();
-       String sql1="Select username from doctor_details where username= '" + txtDoctorUsername.getText() + "'";
-       rs=stmt.executeQuery(sql1);
-       if(rs.next()){
-        JOptionPane.showMessageDialog( this, "Doctor Username already exists","Error", JOptionPane.ERROR_MESSAGE);
-        txtDoctorUsername.setText("");
-        txtDoctorUsername.requestDefaultFocus();
-       return;
-      }
-            String sql= "Update doctor_details set first_name = ?, last_name = ?, address = ?, city = ?, zip = ?, contact = ?, email = ?, specialization = ?";
+       
+       
+            String sql= "Update doctor_details set id=?,first_name =?,last_name =?,address= ?, city = ?, zip = ?, contact = ?, email = ?, specialization = ?";
             pst=con.prepareStatement(sql);
-            pst.setString(1, firstname);
-            pst.setString(2, lastname);
-            pst.setString(3, address);
-            pst.setString(4, city);
-            pst.setString(5, zip);
-            pst.setString(6, contact);
-            pst.setString(7, email);
-            pst.setString(8, spec);
+            pst.setString(1, id);
+            pst.setString(2, firstname);
+            pst.setString(3, lastname);
+            pst.setString(4, address);
+            pst.setString(5, city);
+            pst.setString(6, zip);
+            pst.setString(7, contact);
+            pst.setString(8, email);
+            pst.setString(9, spec);
            
             
             
             
-            pst.executeUpdate();
+            pst.execute();
             JOptionPane.showMessageDialog(this,"Successfully Updated","Doctor",JOptionPane.INFORMATION_MESSAGE);
             buttonSave.setEnabled(false);
             Doctor_table();
@@ -532,6 +563,7 @@ private void Doctor_table(){
         while(rs.next()){
             Vector vector = new Vector();
             for(int i =1; i<=c;i++){
+                vector.add(rs.getString("id"));
                 vector.add(rs.getString("first_name"));
                 vector.add(rs.getString("last_name"));
                 vector.add(rs.getString("address"));
@@ -590,6 +622,8 @@ private void Doctor_table(){
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonSave;
     private javax.swing.JButton buttonUpdate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDoctorAddress;
     private javax.swing.JLabel lblDoctorCity;
