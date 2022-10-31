@@ -45,6 +45,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
         buttonRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 204, 255));
         setMinimumSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -177,19 +178,24 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
             // TODO add your handling code here:
         }
+        }
+        
         if (comboUsers.getSelectedItem().equals("Doctor")){
-        String sql3= ("select * from doctor_details where username = ? and password = ? and usertype = ?");
+        String sql3= "select * from doctor_details where username = ? and password = ?";
         try{
             pst=con.prepareStatement(sql3);
             pst.setString(1, username);
             pst.setString(2, password);
-            pst.setString(3, usertype);
+           // pst.setString(3, usertype);
             rs= pst.executeQuery();
             if (rs.next()){
                 this.setVisible(false);
-                Admin admin =new Admin();
-                admin.setVisible(true);
+                Doctor doctor = new Doctor();
+                doctor.setVisible(true);
+                String user = txtUsername.getText();
                 
+                
+                doctor.username(user);
             }
             
             else{
@@ -200,7 +206,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             // TODO add your handling code here:
         }
         }
-        }
+        
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed

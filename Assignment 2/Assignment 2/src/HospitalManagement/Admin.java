@@ -28,6 +28,7 @@ public class Admin extends javax.swing.JFrame {
 
         jMenuItem7 = new javax.swing.JMenuItem();
         buttonLogOut = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAddUsers = new javax.swing.JMenu();
         menuAddPatient = new javax.swing.JMenuItem();
@@ -39,7 +40,6 @@ public class Admin extends javax.swing.JFrame {
         menuCommunity = new javax.swing.JMenuItem();
         menuView = new javax.swing.JMenu();
         menuPatientAppointment = new javax.swing.JMenuItem();
-        menuPrescription = new javax.swing.JMenuItem();
         menuDoctorSchedule = new javax.swing.JMenuItem();
         menuCreate = new javax.swing.JMenu();
         menuPatientAppt = new javax.swing.JMenuItem();
@@ -49,9 +49,18 @@ public class Admin extends javax.swing.JFrame {
         jMenuItem7.setText("jMenuItem7");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 204, 255));
         setMinimumSize(new java.awt.Dimension(1400, 800));
 
         buttonLogOut.setText("Log Out");
+        buttonLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLogOutActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/HospitalManagement/female-doctor-nurse-stethoscope-hands-ecg-line-medical-green-background-health-care-banner-web-sites-copy-173537104.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
 
         menuAddUsers.setText("Add Users");
 
@@ -94,9 +103,6 @@ public class Admin extends javax.swing.JFrame {
         menuPatientAppointment.setText("Patient Appointment");
         menuView.add(menuPatientAppointment);
 
-        menuPrescription.setText("Prescription");
-        menuView.add(menuPrescription);
-
         menuDoctorSchedule.setText("Doctor's Schedule");
         menuView.add(menuDoctorSchedule);
 
@@ -122,15 +128,21 @@ public class Admin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 1328, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1310, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(buttonLogOut))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonLogOut)
-                .addContainerGap(748, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonLogOut)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                        .addGap(25, 25, 25))))
         );
 
         pack();
@@ -150,6 +162,13 @@ public class Admin extends javax.swing.JFrame {
         doctor.setVisible(true);
        
     }//GEN-LAST:event_menuAddDoctorActionPerformed
+
+    private void buttonLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogOutActionPerformed
+        // TODO add your handling code here:
+        HospitalLoginPage page = new HospitalLoginPage();
+        this.setVisible(false);
+        page.setVisible(true);
+    }//GEN-LAST:event_buttonLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +207,7 @@ public class Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogOut;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem7;
@@ -204,7 +224,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuPatient;
     private javax.swing.JMenuItem menuPatientAppointment;
     private javax.swing.JMenuItem menuPatientAppt;
-    private javax.swing.JMenuItem menuPrescription;
     private javax.swing.JMenu menuView;
     // End of variables declaration//GEN-END:variables
 }

@@ -113,6 +113,7 @@ public class Encounter extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tableAppointment = new javax.swing.JTable();
         buttonAppointment = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1600, 800));
@@ -313,6 +314,13 @@ public class Encounter extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("View");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -321,7 +329,9 @@ public class Encounter extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
-                        .addComponent(buttonAppointment))
+                        .addComponent(buttonAppointment)
+                        .addGap(91, 91, 91)
+                        .addComponent(jButton1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +358,9 @@ public class Encounter extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addComponent(buttonAppointment)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAppointment)
+                    .addComponent(jButton1))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -365,9 +377,7 @@ public class Encounter extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -474,6 +484,7 @@ public class Encounter extends javax.swing.JFrame {
         }
         
         
+        
     }//GEN-LAST:event_buttonAppointmentActionPerformed
 
     private void textIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIDActionPerformed
@@ -505,6 +516,45 @@ public class Encounter extends javax.swing.JFrame {
         //txtName.setText(model.getValueAt(SelectIndex, 3).toString());
 
     }//GEN-LAST:event_tableHospitalMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        try{
+            Statement stmt;
+       stmt= con.createStatement();
+       String sql = "Select * from encounter";
+       rs = stmt.executeQuery(sql);
+      while(rs.next()){
+        
+       
+      
+            
+           String appointmentid = String.valueOf(rs.getString("appointmentid"));
+           String patientid = String.valueOf(rs.getString("patientid"));
+           String doctorid = String.valueOf(rs.getString("doctorid"));
+           String doctor_firstname = String.valueOf(rs.getString("doctor_firstname"));
+           String doctor_lastname = String.valueOf(rs.getString("doctor_lastname"));
+           String hospitalname = String.valueOf(rs.getString("hospitalname"));
+           String date = String.valueOf(rs.getString("date"));
+           
+           String tbData[] = {appointmentid,patientid, doctorid, doctor_firstname, doctor_lastname, hospitalname, date };
+           DefaultTableModel model = (DefaultTableModel) tableAppointment.getModel();
+           model.addRow(tbData);
+           
+           
+            
+            //AutoID();
+            //PatientID();
+            //Doctor_table1();
+            //Hospital_table1();
+            JOptionPane.showMessageDialog(this,"Successfully Registered","Patient",JOptionPane.INFORMATION_MESSAGE);
+            
+
+        }
+        }catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(this,ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     private void Hospital_table(){
     try{
@@ -685,6 +735,7 @@ public class Encounter extends javax.swing.JFrame {
     private javax.swing.JButton buttonAppointment;
     private javax.swing.JComboBox<String> comboCommunity;
     private com.toedter.calendar.JDateChooser dateChooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
