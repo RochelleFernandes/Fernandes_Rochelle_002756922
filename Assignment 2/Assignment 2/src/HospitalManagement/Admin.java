@@ -121,16 +121,16 @@ public class Admin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(613, 613, 613)
-                .addComponent(buttonLogOut)
-                .addContainerGap(715, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 1328, Short.MAX_VALUE)
+                .addComponent(buttonLogOut))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(buttonLogOut)
-                .addGap(0, 754, Short.MAX_VALUE))
+                .addContainerGap(748, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,13 +140,13 @@ public class Admin extends javax.swing.JFrame {
     private void menuAddPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddPatientActionPerformed
         // TODO add your handling code here:
         
-        PatientRegistration register = new PatientRegistration();
+        PatientDirectory register = new PatientDirectory();
         register.setVisible(true);
     }//GEN-LAST:event_menuAddPatientActionPerformed
 
     private void menuAddDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddDoctorActionPerformed
         // TODO add your handling code here:
-        DoctorDetails doctor = new DoctorDetails();
+        DoctorDirectory doctor = new DoctorDirectory();
         doctor.setVisible(true);
        
     }//GEN-LAST:event_menuAddDoctorActionPerformed

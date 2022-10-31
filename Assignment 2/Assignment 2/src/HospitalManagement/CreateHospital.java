@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  * @author roche
  */
 public class CreateHospital extends javax.swing.JFrame {
-   Connection con=null;
+    Connection con=null;
     PreparedStatement pst=null;
     ResultSet rs=null; 
     HospitalDirectory hospitaldirectory;
@@ -73,7 +73,6 @@ public class CreateHospital extends javax.swing.JFrame {
         txtHospitalName = new javax.swing.JTextField();
         buttonAdd = new javax.swing.JButton();
         buttonUpdate = new javax.swing.JButton();
-        buttonDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHospitalData = new javax.swing.JTable();
 
@@ -98,8 +97,6 @@ public class CreateHospital extends javax.swing.JFrame {
                 buttonUpdateActionPerformed(evt);
             }
         });
-
-        buttonDelete.setText("Delete");
 
         tableHospitalData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,9 +132,7 @@ public class CreateHospital extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(156, 156, 156)
-                                .addComponent(buttonUpdate)
-                                .addGap(57, 57, 57)
-                                .addComponent(buttonDelete))
+                                .addComponent(buttonUpdate))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +157,7 @@ public class CreateHospital extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAdd)
-                    .addComponent(buttonUpdate)
-                    .addComponent(buttonDelete))
+                    .addComponent(buttonUpdate))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(384, Short.MAX_VALUE))
@@ -178,16 +172,16 @@ public class CreateHospital extends javax.swing.JFrame {
         
         String HospitalArea = comboCommunity.getSelectedItem().toString();
         String HospitalName = txtHospitalName.getText();
+                    
+        //HospitalData hd = hospitaldirectory.addNewInfo();
+        //hd.setHospitalArea(HospitalArea);
+        //hd.setHospitalName(HospitalName);
         
-        HospitalData hd = hospitaldirectory.addNewInfo();
-        hd.setHospitalArea(HospitalArea);
-        hd.setHospitalName(HospitalName);
-        
+      
        
       
-        try{
-           
-            if (comboCommunity.getSelectedItem().equals("Select Community"))  {
+       try{
+           if (comboCommunity.getSelectedItem().equals("Select Community"))  {
                 JOptionPane.showMessageDialog( this, "Please select Community","Error", JOptionPane.ERROR_MESSAGE);
                 return;
 
@@ -197,6 +191,9 @@ public class CreateHospital extends javax.swing.JFrame {
                 return;
 
             }
+
+           
+            
             Statement stmt;
             stmt= con.createStatement();
             String sql1="Select hospital_name  from hospital_directory where hospital_name= '" + txtHospitalName.getText() + "'";
@@ -237,12 +234,84 @@ public class CreateHospital extends javax.swing.JFrame {
         comboCommunity.setSelectedItem(updatedCommunity);
         txtHospitalName.setText(updatedName);
         
-        comboCommunity.setSelectedIndex(0);
-        txtHospitalName.setText("");
+        //comboCommunity.setSelectedIndex(0);
+        //txtHospitalName.setText("");
     }//GEN-LAST:event_tableHospitalDataMouseClicked
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // TODO add your handling code here:
+        String HospitalArea = comboCommunity.getSelectedItem().toString();
+           String HospitalName = txtHospitalName.getText();
+        DefaultTableModel model = (DefaultTableModel) tableHospitalData.getModel();
+       if(tableHospitalData.getSelectedRowCount ()==1){
+          // String HospitalArea = comboCommunity.getSelectedItem().toString();
+          // String HospitalName = txtHospitalName.getText();
+            
+            
+            model.setValueAt(HospitalArea, tableHospitalData.getSelectedRow(), 0);
+            model.setValueAt(HospitalName, tableHospitalData.getSelectedRow(), 1);
+                        
+            JOptionPane.showMessageDialog(this, "Details updated successfully");
+           
+       
+       }else{
+           if(tableHospitalData.getRowCount()==0){
+               JOptionPane.showMessageDialog(this, "Please enter details");
+           }
+           else{
+               JOptionPane.showMessageDialog(this, "Please select a row");
+           }  
+       }
+       try{
+            
+            if (comboCommunity.getSelectedItem().toString().equals("Select Community")) {
+                JOptionPane.showMessageDialog( this, "Please select Community","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+
+            }
+            if (txtHospitalName.getText().equals("")) {
+                JOptionPane.showMessageDialog( this, "Please enter Hospital Name","Error", JOptionPane.ERROR_MESSAGE);
+                return;
+
+            }
+            
+       Statement stmt;
+       stmt= con.createStatement();
+       
+       //rs=stmt.executeQuery();
+      if(rs.next()){
+        //JOptionPane.showMessageDialog( this, "Patient Username already exists","Error", JOptionPane.ERROR_MESSAGE);
+        txtHospitalName.setText("");
+        txtHospitalName.requestDefaultFocus();
+       return;
+      }
+       
+            String sql= "Update hospital_directory set hospital_area =?, hospital_name =? where id =?";        
+            
+            pst=con.prepareStatement(sql);
+            
+            pst.setString(1, HospitalArea);
+            pst.setString(2, HospitalName);
+            
+            
+            
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Successfully Updated","Hospital",JOptionPane.INFORMATION_MESSAGE);
+            buttonAdd.setEnabled(false);
+            
+            comboCommunity.setSelectedIndex(0);
+            txtHospitalName.setText("");
+            
+             
+            Hospital_table();
+            
+            buttonAdd.setEnabled(true);
+
+        }catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(this,ex);
+        }
+   
         
         
     }//GEN-LAST:event_buttonUpdateActionPerformed
@@ -275,7 +344,7 @@ public class CreateHospital extends javax.swing.JFrame {
         }
         
     }   catch (SQLException ex) {
-            Logger.getLogger(DoctorDetails.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DoctorDirectory.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
 
@@ -317,7 +386,6 @@ public class CreateHospital extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
-    private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonUpdate;
     private javax.swing.JComboBox<String> comboCommunity;
     private javax.swing.JScrollPane jScrollPane1;

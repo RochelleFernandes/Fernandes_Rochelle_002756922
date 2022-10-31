@@ -59,7 +59,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
 
         lblPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPassword.setText("Password:");
-        getContentPane().add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+        getContentPane().add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, -1, -1));
 
         lblLogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLogin.setText("Login As:");
@@ -67,7 +67,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
 
         lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblUsername.setText("Username:");
-        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, -1, -1));
+        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, 20));
 
         txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +75,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
                 txtUsernameActionPerformed(evt);
             }
         });
-        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 220, 30));
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 220, 40));
 
         buttonLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         buttonLogin.setText("Login");
@@ -85,7 +85,7 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, -1, -1));
-        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 220, 30));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 220, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Don't have an account?");
@@ -135,11 +135,16 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             pst=con.prepareStatement(sq1);
             pst.setString(1, username);
             pst.setString(2, password);
+            //pst.setString(3, usertype);
             rs= pst.executeQuery();
             if (rs.next()){
                 this.setVisible(false);
-                SearchDoctor form =new SearchDoctor();
-                form.setVisible(true);
+                Encounter encounter =new Encounter();
+                encounter.setVisible(true);
+                String user = txtUsername.getText();
+                
+                
+                encounter.username(user);
             }
             
             else{
@@ -172,6 +177,29 @@ public class HospitalLoginPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
             // TODO add your handling code here:
         }
+        if (comboUsers.getSelectedItem().equals("Doctor")){
+        String sql3= ("select * from doctor_details where username = ? and password = ? and usertype = ?");
+        try{
+            pst=con.prepareStatement(sql3);
+            pst.setString(1, username);
+            pst.setString(2, password);
+            pst.setString(3, usertype);
+            rs= pst.executeQuery();
+            if (rs.next()){
+                this.setVisible(false);
+                Admin admin =new Admin();
+                admin.setVisible(true);
+                
+            }
+            
+            else{
+                JOptionPane.showMessageDialog(null, "Login Failed..Try again !");
+            }
+        }catch(SQLException | HeadlessException e){
+            JOptionPane.showMessageDialog(null, e);
+            // TODO add your handling code here:
+        }
+        }
         }
     }//GEN-LAST:event_buttonLoginActionPerformed
 
@@ -186,9 +214,9 @@ public class HospitalLoginPage extends javax.swing.JFrame {
 
     private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
         // TODO add your handling code here:
-        PatientRegistration register = new PatientRegistration();
-        register.show();
-        dispose();
+        PatientDirectory register = new PatientDirectory();
+        register.setVisible(true);
+        
     }//GEN-LAST:event_buttonRegisterActionPerformed
 
     /**
