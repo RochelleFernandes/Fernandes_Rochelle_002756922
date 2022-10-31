@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,14 +19,17 @@ import javax.swing.JOptionPane;
  * @author roche
  */
 public class HospitalLoginPage extends javax.swing.JFrame {
-
+ Connection con=null;
+        ResultSet rs=null;
+        PreparedStatement pst=null;
     /**
      * Creates new form HospitalLoginPage
      */
     public HospitalLoginPage() {
         initComponents();
+        //con = Connect.ConnectDB();
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,9 +198,10 @@ public class HospitalLoginPage extends javax.swing.JFrame {
                 Doctor doctor = new Doctor();
                 doctor.setVisible(true);
                 String user = txtUsername.getText();
-                
-                
                 doctor.username(user);
+                //doctor.ViewAppointment(id);
+                
+                
             }
             
             else{

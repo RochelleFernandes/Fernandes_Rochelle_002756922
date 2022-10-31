@@ -43,6 +43,8 @@ public class Encounter extends javax.swing.JFrame {
         
         
     }
+    
+    
         
     public void AutoID(){
             try{
@@ -114,6 +116,7 @@ public class Encounter extends javax.swing.JFrame {
         tableAppointment = new javax.swing.JTable();
         buttonAppointment = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1600, 800));
@@ -368,6 +371,13 @@ public class Encounter extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("View Appointment", jPanel3);
 
+        jButton2.setText("LogOut");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -377,7 +387,10 @@ public class Encounter extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -386,7 +399,9 @@ public class Encounter extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(374, Short.MAX_VALUE))
+                .addGap(81, 81, 81)
+                .addComponent(jButton2)
+                .addContainerGap(270, Short.MAX_VALUE))
         );
 
         pack();
@@ -556,6 +571,11 @@ public class Encounter extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void Hospital_table(){
     try{
         pst = con.prepareCall("Select * from hospital_directory");
@@ -583,32 +603,6 @@ public class Encounter extends javax.swing.JFrame {
             Logger.getLogger(DoctorDirectory.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /**private void Hospital_table1(){
-    try{
-        pst = con.prepareCall("Select * from hospital_directory");
-        rs = pst.executeQuery();
-        ResultSetMetaData result = (ResultSetMetaData) rs.getMetaData();
-        int c;
-        c=result.getColumnCount();
-        
-        DefaultTableModel model = (DefaultTableModel)tableAppointment.getModel();
-        model.setRowCount(0);
-        
-        while(rs.next()){
-            Vector vector = new Vector();
-            for(int i =1; i<=c ;i++){
-                
-                vector.add(rs.getString("hospital_name"));
-
-                
-            }
-            model.addRow(vector);
-        }
-        
-    }   catch (SQLException ex) {
-            Logger.getLogger(DoctorDirectory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
     
     
     private void Doctor_table(){
@@ -625,7 +619,7 @@ public class Encounter extends javax.swing.JFrame {
         while(rs.next()){
             Vector vector = new Vector();
             for(int i =1; i<=c ;i++){
-                vector.add(rs.getString("id"));
+                vector.add(rs.getString("username"));
                 vector.add(rs.getString("first_name"));
                 vector.add(rs.getString("last_name"));
                 vector.add(rs.getString("specialization"));
@@ -641,38 +635,9 @@ public class Encounter extends javax.swing.JFrame {
         }
    
     }
-    /**private void Doctor_table1(){
-    try{
-        pst = con.prepareCall("Select * from doctor_details");
-        rs = pst.executeQuery();
-        ResultSetMetaData result = (ResultSetMetaData) rs.getMetaData();
-        int c;
-        c=result.getColumnCount();
-        
-        DefaultTableModel model = (DefaultTableModel)tableAppointment.getModel();
-        model.setRowCount(0);
-        
-        while(rs.next()){
-            Vector vector = new Vector();
-            for(int i =1; i<=c ;i++){
-                vector.add(rs.getString("id"));
-                vector.add(rs.getString("first_name"));
-                vector.add(rs.getString("last_name"));
-                
-
-
-                
-            }
-            model.addRow(vector);
-        }
-        
-    }   catch (SQLException ex) {
-            Logger.getLogger(DoctorDirectory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-   
-    }*/
     
-    private void PatientID(String id){
+    
+    /**private void PatientID(String id){
         String patientid = jLabel3.getText();
         try{
         
@@ -693,7 +658,7 @@ public class Encounter extends javax.swing.JFrame {
         }
 
         
-    }       
+    }  */     
     
     /**
      * @param args the command line arguments
@@ -736,6 +701,7 @@ public class Encounter extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboCommunity;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

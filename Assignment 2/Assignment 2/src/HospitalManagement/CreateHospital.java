@@ -75,6 +75,7 @@ public class CreateHospital extends javax.swing.JFrame {
         buttonUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHospitalData = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +114,13 @@ public class CreateHospital extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableHospitalData);
 
+        jButton1.setText("<<Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,7 +148,9 @@ public class CreateHospital extends javax.swing.JFrame {
                                     .addComponent(comboCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
                 .addContainerGap(928, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -160,7 +170,9 @@ public class CreateHospital extends javax.swing.JFrame {
                     .addComponent(buttonUpdate))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(jButton1)
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,6 +328,11 @@ public class CreateHospital extends javax.swing.JFrame {
         
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void clearField(){
         comboCommunity.setSelectedIndex(0);
         txtHospitalName.setText("");
@@ -388,6 +405,7 @@ public class CreateHospital extends javax.swing.JFrame {
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonUpdate;
     private javax.swing.JComboBox<String> comboCommunity;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCommunity;
     private javax.swing.JLabel lblHospitalName;

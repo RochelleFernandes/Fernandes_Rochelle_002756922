@@ -33,6 +33,10 @@
                       <Component id="jLabel3" min="-2" pref="107" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jTabbedPane1" alignment="0" min="-2" pref="1171" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -44,7 +48,9 @@
               <Component id="jLabel3" min="-2" pref="27" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="jTabbedPane1" min="-2" pref="495" max="-2" attributes="0"/>
-              <EmptySpace pref="374" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="270" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -551,5 +557,13 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="LogOut"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

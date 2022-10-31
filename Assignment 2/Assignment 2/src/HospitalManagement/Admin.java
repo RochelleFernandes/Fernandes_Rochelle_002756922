@@ -114,6 +114,11 @@ public class Admin extends javax.swing.JFrame {
         menuCreate.add(menuPatientAppt);
 
         jMenuItem1.setText("Add Hospitals");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         menuCreate.add(jMenuItem1);
 
         menuDoctorAppt.setText("Doctor's Appointment");
@@ -169,6 +174,13 @@ public class Admin extends javax.swing.JFrame {
         this.setVisible(false);
         page.setVisible(true);
     }//GEN-LAST:event_buttonLogOutActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        
+        CreateHospital hospital = new CreateHospital();
+        hospital.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
